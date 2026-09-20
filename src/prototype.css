@@ -37,6 +37,7 @@ h1 { font-size: clamp(38px, 11.7vw, 46px); }
 
 /* Final spacing and navigation refinements. */
 .reveal .navigation, .ending .navigation { background: transparent; }
+.letter .eyebrow:empty { display: none; }.letter .slide::before { margin-bottom: 18px; }
 .portrait-card { margin-top: 30px; }.letter .copy { margin-top: 28px; }
 .photo-slot { margin-top: 30px; }.memory .copy, .bangkok .copy { margin-top: 26px; }
 @media (max-height: 720px) { .portrait-card { width: 156px; margin-top: 18px; }.letter .copy { margin-top: 20px; }.photo-slot { margin-top: 20px; }.memory .copy, .bangkok .copy { margin-top: 18px; } }
