@@ -41,3 +41,16 @@ h1 { font-size: clamp(38px, 11.7vw, 46px); }
 .portrait-card { margin-top: 30px; }.letter .copy { margin-top: 28px; }
 .photo-slot { margin-top: 30px; }.memory .copy, .bangkok .copy { margin-top: 26px; }
 @media (max-height: 720px) { .portrait-card { width: 156px; margin-top: 18px; }.letter .copy { margin-top: 20px; }.photo-slot { margin-top: 20px; }.memory .copy, .bangkok .copy { margin-top: 18px; } }
+
+/* Keep an exiting slide's layout and color stable during the fade. */
+.slide.reveal-slide, .slide.letter-slide, .slide.wish-slide, .slide.dream-slide, .slide.ending-slide { align-items: center; text-align: center; justify-content: center; }
+.slide.reveal-slide .copy, .slide.letter-slide .copy, .slide.wish-slide .copy, .slide.dream-slide .copy, .slide.ending-slide .copy { max-width: 305px; }
+.slide.reveal-slide .eyebrow, .slide.letter-slide .eyebrow, .slide.wish-slide .eyebrow, .slide.dream-slide .eyebrow, .slide.ending-slide .eyebrow { margin-bottom: 20px; }
+.slide.memory-slide, .slide.bangkok-slide, .slide.collage-slide { align-items: stretch; text-align: left; }
+.slide.memory-slide .copy, .slide.bangkok-slide .copy { max-width: none; }
+.photo-slot.top > img { object-position: center top; }
+.memory .photo-slot { margin-top: 38px; }.memory .copy { margin-top: 34px; }
+.ending .slide:not(.ending-slide)::before { content: none; }.ending .slide:not(.ending-slide) h1 { color: var(--ink); }.ending .slide:not(.ending-slide) .copy p, .ending .slide:not(.ending-slide) .copy p:first-child { color: #653b43; }.ending .slide.ending-slide::before { color: #ffc8c9; }
+@media (max-height: 720px) { .memory .photo-slot { margin-top: 26px; }.memory .copy { margin-top: 24px; } }
+
+.sound-toggle { position: absolute; z-index: 12; top: 18px; right: 76px; width: 34px; height: 34px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.52); color: var(--berry); display: grid; place-items: center; font: 600 16px/1 "DM Sans", sans-serif; }.reveal .sound-toggle, .ending .sound-toggle { border-color: rgba(255,228,221,.48); background: rgba(255,255,255,.12); color: #fff5ed; }
