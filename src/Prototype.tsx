@@ -1,18 +1,17 @@
 import { ArrowLeftIcon, ArrowRightIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { MobileScroll } from "./mobile";
 
 type Slide = { kind: "reveal" | "letter" | "wish" | "memory" | "bangkok" | "collage" | "dream" | "ending"; eyebrow: string; title: string; copy: string[]; label?: string; note?: string; image?: string; collage?: { src: string; alt: string }[] };
 
 const slides: Slide[] = [
   { kind: "reveal", eyebrow: "for nurul", title: "This is your\nspecial day", copy: ["Aku bikin sesuatu kecil buat kamu.", "Bukan karena hari ini harus heboh, tapi karena aku pengin kamu tahu kalau kamu sespesial itu buat aku."], label: "Buka yuk" },
   { kind: "letter", eyebrow: "20 september", title: "Happy Birthday,\nMy Wife", copy: ["Nurul Rizki Yanti", "Makasih ya udah jadi istri, teman, tempat cerita, dan partner paling seru buat aku. Semoga malam ini kamu senang, dan semoga kamu selalu inget kalau aku sayang banget sama kamu."], image: "/photos/nurul-rizki-yanti.jpg" },
-  { kind: "wish", eyebrow: "a little wish for you · 01", title: "Semoga kamu\nselalu bahagia", copy: ["Aku pengin kamu selalu ngerasa dicintai, bahkan di hari yang biasa-biasa aja.", "Bukan cuma pas ulang tahun atau pas ada kejutan. Karena buat aku, punya kamu itu selalu sesuatu yang patut dirayain."] },
-  { kind: "wish", eyebrow: "a little wish for you · 02", title: "Semoga kamu\ndapetin yang kamu mau", copy: ["Semoga pelan-pelan kamu bisa dapetin hal-hal yang kamu mau.", "Mau itu mimpi besar, keinginan kecil, atau sesuatu yang selama ini kamu simpan sendiri. Aku bakal tetap di sini, dukung kamu dan bangga sama kamu."] },
-  { kind: "wish", eyebrow: "a little wish for you · 03", title: "Semoga kamu\nnggak capek sendiri", copy: ["Kalau lagi capek, jangan ngerasa harus kuat sendiri ya.", "Kamu selalu bisa cerita, ngeluh, atau cuma diem bareng aku. Aku pengin kamu ngerasa rumah itu ada di kita."] },
-  { kind: "wish", eyebrow: "a little wish for you · 04", title: "Semoga kita\ntetap seru kayak gini", copy: ["Semoga kita nggak berhenti ketawa karena hal receh, ngobrol random, dan saling gangguin.", "Hidup mungkin nanti makin sibuk, tapi aku pengin kita tetap punya waktu buat jadi ‘kita’." ] },
-  { kind: "wish", eyebrow: "a little wish for you · 05", title: "Semoga tahun ini\nbaik sama kamu", copy: ["Semoga di umur yang baru ini, kamu ketemu lebih banyak hal yang bikin kamu happy.", "Lebih banyak momen yang bikin kamu bangga sama diri sendiri. Dan lebih banyak alasan buat bilang, ‘tahun ini seru juga ya.’"] },
+  { kind: "wish", eyebrow: "", title: "Semoga kamu\nselalu bahagia", copy: ["Aku pengin kamu selalu ngerasa dicintai, bahkan di hari yang biasa-biasa aja.", "Bukan cuma pas ulang tahun atau pas ada kejutan. Karena buat aku, punya kamu itu selalu sesuatu yang patut dirayain."] },
+  { kind: "wish", eyebrow: "", title: "Semoga kamu\ndapetin yang kamu mau", copy: ["Semoga pelan-pelan kamu bisa dapetin hal-hal yang kamu mau.", "Mau itu mimpi besar, keinginan kecil, atau sesuatu yang selama ini kamu simpan sendiri. Aku bakal tetap di sini, dukung kamu dan bangga sama kamu."] },
+  { kind: "wish", eyebrow: "", title: "Semoga kamu\nnggak capek sendiri", copy: ["Kalau lagi capek, jangan ngerasa harus kuat sendiri ya.", "Kamu selalu bisa cerita, ngeluh, atau cuma diem bareng aku. Aku pengin kamu ngerasa rumah itu ada di kita."] },
+  { kind: "wish", eyebrow: "", title: "Semoga kita\ntetap seru kayak gini", copy: ["Semoga kita nggak berhenti ketawa karena hal receh, ngobrol random, dan saling gangguin.", "Hidup mungkin nanti makin sibuk, tapi aku pengin kita tetap punya waktu buat jadi ‘kita’." ] },
+  { kind: "wish", eyebrow: "", title: "Semoga tahun ini\nbaik sama kamu", copy: ["Semoga di umur yang baru ini, kamu ketemu lebih banyak hal yang bikin kamu happy.", "Lebih banyak momen yang bikin kamu bangga sama diri sendiri. Dan lebih banyak alasan buat bilang, ‘tahun ini seru juga ya.’"] },
   { kind: "memory", eyebrow: "our memories · 01", title: "It all started\nwith a first date", copy: ["Dari semua hari biasa, ternyata hari itu jadi awal cerita paling penting buat aku."], note: "Foto first date kamu taruh di sini nanti" },
   { kind: "memory", eyebrow: "our memories · 02", title: "Campus life,\nbut with you", copy: ["Banyak hal yang aku inget dari masa itu, tapi kamu tetap jadi bagian favoritnya."], note: "Foto campus life kamu taruh di sini nanti" },
   { kind: "memory", eyebrow: "our memories · 03", title: "Every trip\nwas better with you", copy: ["Tempatnya boleh beda-beda, tapi yang bikin semuanya seru tetap karena ada kamu."], note: "Our trip together", image: "/photos/our-trip.jpg" },
@@ -46,10 +45,10 @@ export default function Prototype() {
   const previous = () => setActive((current) => Math.max(0, current - 1));
   return (
     <div className={`scrapbook-app ${slide.kind}`}>
-    <MobileScroll className="app-screen scrapbook-screen">
+    <div className="app-screen scrapbook-screen">
       <main className="screen-content" aria-live="polite">
         <header className="topbar"><button className="back-button" onClick={previous} disabled={first} aria-label="Kembali"><ArrowLeftIcon /></button><div className="page-count">{String(active + 1).padStart(2, "0")} <span>/</span> {String(slides.length).padStart(2, "0")}</div></header>
-        <AnimatePresence mode="wait"><motion.article className="slide" key={active} initial={{ opacity: 0, y: 18, rotate: active % 2 ? -1.2 : 1.2 }} animate={{ opacity: 1, y: 0, rotate: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}>
+        <AnimatePresence initial={false} mode="wait"><motion.article className="slide" key={active} initial={{ opacity: 0, x: 14 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}>
           <p className="eyebrow">{slide.eyebrow}</p><h1>{slide.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
           {slide.kind === "letter" && slide.image && <div className="portrait-card"><img src={slide.image} alt="Nurul Rizki Yanti" /></div>}
           {(slide.kind === "memory" || slide.kind === "bangkok") && <PhotoSlot note={slide.note} image={slide.image} />}
@@ -59,7 +58,7 @@ export default function Prototype() {
           <div className="copy">{slide.copy.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{slide.note && slide.kind !== "memory" && slide.kind !== "bangkok" && <p className="soft-note">{slide.note}</p>}</div>
         </motion.article></AnimatePresence>
       </main>
-    </MobileScroll>
+    </div>
     <footer className="navigation"><div className="progress" aria-label={`Slide ${active + 1} dari ${slides.length}`}>{slides.map((_, index) => <span className={index === active ? "current" : index < active ? "done" : ""} key={index} />)}</div><button className="next-button" onClick={next}><span className="next-button-content"><span>{slide.label ?? (last ? "Mulai lagi" : "Lanjut")}</span>{last ? <ChevronRightIcon /> : <ArrowRightIcon />}</span></button></footer>
     </div>
   );
